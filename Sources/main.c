@@ -165,8 +165,8 @@ void main(void)
     }
 
     effect_pick();
-  }/* loop forever */
-}/* do not leave main */
+  } /* loop forever */
+} /* do not leave main */
 
 
 /*
@@ -265,7 +265,7 @@ interrupt 15 void TIM_ISR(void)
   PTT_PTT4 = 1;
   PTT_PTT4 = 0;
 
-  cur_layer ++;
+  cur_layer++;
 
   if(cur_layer == 8)
   {
@@ -351,7 +351,7 @@ void effect_pick(void)
   }
   else if(effect_count == 2)
   { 
-    for(i=0; i<8 && effect_count == 2; i++)
+    for(i=0; i < 8 && effect_count == 2; i++)
     {
       effect_box_shrink_grow(1, i % 4, i & 0x04, 10 * DELAY_MULTIPLIER);
     }
@@ -365,7 +365,7 @@ void effect_pick(void)
   }
   else if(effect_count == 4)
   {
-    effect_path_text(12 * DELAY_MULTIPLIER, "MERRY XMAS");
+    effect_path_text(12 * DELAY_MULTIPLIER, "ECE 362");
   }
   else if(effect_count == 5)
   {

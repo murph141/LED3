@@ -153,7 +153,7 @@ void draw_planeX(int x)
     {
       for(y = 0; y < 8; y++)
       {
-        cube[z][y] |= 1 << x;
+        cube[z][y] |= (1 << x);
       }
     }
   } 
@@ -301,7 +301,7 @@ void mirror_y(void)
       {
         if(buffer[z][y] & (0x01 << x))
         {
-          turnOn(x, 8 - 1 - y, z); 
+          turnOn(x, 7 - y, z); 
         }
       }
     }
@@ -341,7 +341,7 @@ void mirror_z(void)
   {
     for(z = 0;  z < 8; z++)
     {
-      cube[8 - 1 - z][y] = buffer[z][y];
+      cube[7 - z][y] = buffer[z][y];
     }
   }
 }

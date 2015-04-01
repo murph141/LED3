@@ -320,7 +320,7 @@ void effect_sweepZ(int direction, int delay)
           if(getState(sweepi, sweepj, sweepk))
           {
             turnOff(sweepi, sweepj, sweepk);
-            turnOn(sweepi, sweepj, sweepk  +1);
+            turnOn(sweepi, sweepj, sweepk + 1);
           }
         }
       }

@@ -83,7 +83,7 @@ void initializations(void)
   /*
      Initialize SPI for baud rate of 6 Mbs, MSB first
      (note that R/S, R/W', and LCD clk are on different PTT pins)
-     */  
+  */  
   SPIBR_SPR0 = 1; 
   SPIBR_SPR1 = 0; //baud rate pre-selection bits = 1
   SPIBR_SPR2 = 0;
@@ -165,7 +165,6 @@ void main(void)
     }
 
     effect_pick();
-
   }/* loop forever */
 }/* do not leave main */
 
@@ -189,7 +188,6 @@ interrupt 7 void RTI_ISR(void)
     effect_count++;
     effect_count %= EFFECT_NUM;
     fill(0x00);
-
   }
   else if(prevpb && !PORTAD0_PTAD7)
   {
@@ -268,6 +266,7 @@ interrupt 15 void TIM_ISR(void)
   PTT_PTT4 = 0;
 
   cur_layer ++;
+
   if(cur_layer == 8)
   {
     cur_layer = 0; // reset to bottom layer
@@ -300,7 +299,8 @@ void shiftout(char x)
   // test the SPTEF bit: wait if 0; else, continue
   // write data x to SPI data register
   // wait for 30 cycles for SPI data to shift out 
-  while (!SPISR_SPTEF);
+  while(!SPISR_SPTEF);
+
   SPIDR = x;
 
   asm
@@ -351,52 +351,52 @@ void effect_pick(void)
   }
   else if(effect_count == 2)
   { 
-    for(i=0;i<8 && effect_count == 2;i++)
+    for(i=0; i<8 && effect_count == 2; i++)
     {
-      effect_box_shrink_grow (1, i%4, i & 0x04, 10 * DELAY_MULTIPLIER);
+      effect_box_shrink_grow(1, i % 4, i & 0x04, 10 * DELAY_MULTIPLIER);
     }
   }
   else if(effect_count == 3)
   {
-    effect_box_center(10 * DELAY_MULTIPLIER,0);
-    effect_box_center(10 * DELAY_MULTIPLIER,1);
-    effect_box_center(10 * DELAY_MULTIPLIER,0);
-    effect_box_center(10 * DELAY_MULTIPLIER,1);
+    effect_box_center(10 * DELAY_MULTIPLIER, 0);
+    effect_box_center(10 * DELAY_MULTIPLIER, 1);
+    effect_box_center(10 * DELAY_MULTIPLIER, 0);
+    effect_box_center(10 * DELAY_MULTIPLIER, 1);
   }
   else if(effect_count == 4)
   {
-    effect_path_text (12 * DELAY_MULTIPLIER, "MERRY XMAS");
+    effect_path_text(12 * DELAY_MULTIPLIER, "MERRY XMAS");
   }
   else if(effect_count == 5)
   {
     if(effect_count == 5)
     {
-      effect_holupp('z',1,50 * DELAY_MULTIPLIER);
+      effect_holupp('z', 1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
     if(effect_count == 5)
     {
-      effect_holupp('z',-1,50 * DELAY_MULTIPLIER);
+      effect_holupp('z', -1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
     if(effect_count == 5)
     {
-      effect_holupp('x',1,50 * DELAY_MULTIPLIER);
+      effect_holupp('x', 1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
     if(effect_count == 5)
     {
-      effect_holupp('x',-1,50 * DELAY_MULTIPLIER);
+      effect_holupp('x', -1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
     if(effect_count == 5)
     {
-      effect_holupp('y',1,50 * DELAY_MULTIPLIER);
+      effect_holupp('y', 1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
     if(effect_count == 5)
     {
-      effect_holupp('y',-1,50 * DELAY_MULTIPLIER);
+      effect_holupp('y', -1, 50 * DELAY_MULTIPLIER);
       delay_ms(400);
     }
   }

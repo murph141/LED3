@@ -6,11 +6,11 @@
 
 void fill(unsigned char pattern)
 {
-  int z, y;
+  int y, z;
 
-  for (z = 0; z < 8; z++)
+  for(z = 0; z < 8; z++)
   {
-    for (y = 0; y < 8; y++)
+    for(y = 0; y < 8; y++)
     {
       cube[z][y] = pattern;
     }
@@ -64,7 +64,7 @@ unsigned char getState(int x, int y, int z)
 // Set LED to given state
 void alterState(int x, int y, int z, int state)
 {
-  if (state == 1)
+  if(state == 1)
   {
     turnOn(x, y, z);
   }
@@ -93,7 +93,7 @@ void draw_planeZ(int z)
 
   if(z < 8 && z >= 0)
   {
-    for(y = 0; y < 8; y ++)
+    for(y = 0; y < 8; y++)
     {
       cube[z][y] = 0xFF;
     }
@@ -107,7 +107,7 @@ void clear_planeZ(int z)
 
   if(z < 8 && z >= 0)
   {
-    for(y = 0; y < 8; y ++)
+    for(y = 0; y < 8; y++)
     {
       cube[z][y] = 0x00;
     }
@@ -121,7 +121,7 @@ void draw_planeY(int y)
 
   if(y < 8 && y >= 0)
   {
-    for(z = 0; z < 8; z ++)
+    for(z = 0; z < 8; z++)
     {
       cube[z][y] = 0xFF;
     }
@@ -135,7 +135,7 @@ void clear_planeY(int y)
 
   if(y < 8 && y >= 0)
   {
-    for(z = 0; z < 8; z ++)
+    for(z = 0; z < 8; z++)
     {
       cube[z][y] = 0x00;
     }
@@ -149,9 +149,9 @@ void draw_planeX(int x)
 
   if(x < 8 && x >= 0)
   {
-    for(z = 0; z < 8; z ++)
+    for(z = 0; z < 8; z++)
     {
-      for(y = 0; y < 8; y ++)
+      for(y = 0; y < 8; y++)
       {
         cube[z][y] |= 1 << x;
       }
@@ -166,9 +166,9 @@ void clear_planeX(int x)
 
   if(x < 8 && x >= 0)
   {
-    for(z = 0; z < 8; z ++)
+    for(z = 0; z < 8; z++)
     {
-      for(y = 0; y < 8; y ++)
+      for(y = 0; y < 8; y++)
       {
         cube[z][y] &= ~(1 << x);
       }
@@ -189,6 +189,7 @@ unsigned char make_lineX(int x1, int x2)
 void reorder(int * x1, int * x2)
 {
   int temp;
+
   if(*x1 > *x2)
   {
     temp = *x1;
@@ -234,17 +235,17 @@ void draw_emptyBox(int x1, int x2, int y1, int y2, int z1, int z2)
 
   if(inBound(x1, y1, z1) && inBound(x2, y2, z2))
   {
-    for(z = z1; z < (z2+1); z++)
+    for(z = z1; z < (z2 + 1); z++)
     {
-      for(y = y1; y < (y2+1); y++)
+      for(y = y1; y < (y2 + 1); y++)
       {
-        if((z==z1 || z ==z2) || (y==y1 || y==y2))
+        if((z == z1 || z == z2) || (y == y1 || y == y2))
         {
           cube[z][y] |= x;
         }
         else
         {
-          cube[z][y] |= ((0x01 << x2) | (0x01<<x1));
+          cube[z][y] |= ((0x01 << x2) | (0x01 << x1));
         }
       }
     } 
@@ -264,9 +265,9 @@ void draw_lineBox(int x1, int x2, int y1, int y2, int z1, int z2)
 
   if(inBound(x1, y1, z1) && inBound(x2, y2, z2))
   {
-    for(z = z1; z < (z2+1); z++)
+    for(z = z1; z < (z2 + 1); z++)
     {
-      for(y = y1; y < (y2+1); y++)
+      for(y = y1; y < (y2 + 1); y++)
       {
         if((z == z1 || z == z2) && (y == y1 || y == y2))
         {
@@ -283,10 +284,10 @@ void draw_lineBox(int x1, int x2, int y1, int y2, int z1, int z2)
 
 
 // Flip the cube 180 degrees along the y axis.
-void mirror_y (void)
+void mirror_y(void)
 {
   unsigned char buffer[8][8];
-  unsigned char x,y,z;
+  unsigned char x, y, z;
 
   memcpy(buffer, cube, 64); // copy the current cube into a buffer.
 
@@ -300,7 +301,7 @@ void mirror_y (void)
       {
         if(buffer[z][y] & (0x01 << x))
         {
-          turnOn(x, 8-1-y, z); 
+          turnOn(x, 8 - 1 - y, z); 
         }
       }
     }
@@ -308,10 +309,10 @@ void mirror_y (void)
 }
 
 // Flip the cube 180 degrees along the x axis
-void mirror_x (void)
+void mirror_x(void)
 {
   unsigned char buffer[8][8];
-  unsigned char y,z;
+  unsigned char y, z;
 
   memcpy(buffer, cube, 64); // copy the current cube into a buffer.
 
@@ -329,24 +330,24 @@ void mirror_x (void)
 
 
 // Flip the cube 180 degrees along the z axis
-void mirror_z (void)
+void mirror_z(void)
 {
   unsigned char buffer[8][8];
-  unsigned char z, y;
+  unsigned char y, z;
 
   memcpy(buffer, cube, 64); // copy the current cube into a buffer.
 
-  for(y = 0;  y < 8;  y++)
+  for(y = 0;  y < 8; y++)
   {
-    for(z = 0;  z < 8;  z++)
+    for(z = 0;  z < 8; z++)
     {
-      cube[8-1-z][y] = buffer[z][y];
+      cube[8 - 1 - z][y] = buffer[z][y];
     }
   }
 }
 
 
-char flipbyte (char b)
+char flipbyte(char b)
 {
   char flop = 0x00;
 
@@ -364,12 +365,11 @@ char flipbyte (char b)
 
 void shiftCubeNoWrapAround(char axis, int units)
 {
+  int shift_layer, shift_row;
   int shift_index = 7;
   unsigned char shift_temp[8];
-  int shift_layer;
-  int shift_row;
 
-  if (axis == 'x')
+  if(axis == 'x')
   {
     if(units == 1)
     {
@@ -397,7 +397,7 @@ void shiftCubeNoWrapAround(char axis, int units)
       }
     }
   }
-  else if (axis == 'y')
+  else if(axis == 'y')
   {
     if(units == 1)
     {
@@ -407,7 +407,7 @@ void shiftCubeNoWrapAround(char axis, int units)
 
         while(shift_index > 0)
         {
-          cube[shift_layer][(shift_index + units) % 8]=cube[shift_layer][shift_index];
+          cube[shift_layer][(shift_index + units) % 8] = cube[shift_layer][shift_index];
           shift_index--;
         }
 
@@ -424,7 +424,7 @@ void shiftCubeNoWrapAround(char axis, int units)
 
         while(shift_index < 7)
         {
-          cube[shift_layer][shift_index]=cube[shift_layer][(shift_index + units) % 8];
+          cube[shift_layer][shift_index] = cube[shift_layer][(shift_index + units) % 8];
           shift_index++;
         }
 
@@ -438,26 +438,26 @@ void shiftCubeNoWrapAround(char axis, int units)
     {
       while(shift_index > 0)
       {
-        memcpy(cube[(shift_index + units) % 8],cube[shift_index],8);
+        memcpy(cube[(shift_index + units) % 8], cube[shift_index], 8);
         shift_index--;
       }
 
-      memcpy(cube[0], blank,8);
+      memcpy(cube[0], blank, 8);
     }
     else if(units == -1)
     {
       shift_index = 0;
       units = 1;
 
-      memcpy(shift_temp,cube[0],8);
+      memcpy(shift_temp,cube[0], 8);
 
       while(shift_index < 7)
       {
-        memcpy(cube[shift_index],cube[(shift_index+units)%8],8);
+        memcpy(cube[shift_index], cube[(shift_index+units) % 8], 8);
         shift_index++;
       }
 
-      memcpy(cube[7], blank,8);
+      memcpy(cube[7], blank, 8);
     }
   }
 }
@@ -516,17 +516,17 @@ void fill_mask(void)
 void carve_mask(int x)
 {
   int randx, randy;
-  int rand_num = rand()%(10);
+  int rand_num = rand() % 10;
 
   while(rand_num >= 0)
   {
-    randx = rand()%9;
-    randy = rand()%9;
+    randx = rand() % 9;
+    randy = rand() % 9;
 
     if(shift_mask[randx][randy] == 1)
     {
       rand_num--;
-      shift_mask[randx][randy]=0;
+      shift_mask[randx][randy] = 0;
     }
   }
 }
